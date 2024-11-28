@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:chit_chat/constans.dart';
 import 'package:chit_chat/core/utils/logo.dart';
 import 'package:chit_chat/core/utils/text_styles.dart';
@@ -34,17 +36,32 @@ class _SignUpBodyState extends State<SignUpBody> {
           style: Style.textStyle18.copyWith(color: Colors.grey[700]),
         ),
         const Logo(),
-        const CustomTextFormField(
+        CustomTextFormField(
           lableText: 'Email',
-          prefixIcon: Icon(Icons.email),
+          prefixIcon: const Icon(Icons.email),
+          onChanged: (String value) {
+            setState(() {
+              emailAdress = value;
+              log(emailAdress);
+            });
+          },
         ),
-        const CustomTextFormField(
+        CustomTextFormField(
           lableText: 'Password',
-          prefixIcon: Icon(Icons.lock),
+          prefixIcon: const Icon(Icons.lock),
+          onChanged: (String value) {
+            setState(() {
+              password = value;
+              log(password);
+            });
+          },
         ),
-        CustomButton(
-          text: 'Sign',
-          onPressed: () {},
+        SizedBox(
+          width: 370,
+          child: CustomButton(
+            text: 'Sign',
+            onPressed: () {},
+          ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -4,14 +4,19 @@ import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField(
-      {super.key, required this.lableText, required this.prefixIcon});
+      {super.key,
+      required this.lableText,
+      required this.prefixIcon,
+      required this.onChanged});
   final String lableText;
   final Icon prefixIcon;
+  final Function(String value) onChanged;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
+        onChanged: onChanged,
         decoration: InputDecoration(
           labelText: lableText,
           labelStyle: Style.textStyle18,
