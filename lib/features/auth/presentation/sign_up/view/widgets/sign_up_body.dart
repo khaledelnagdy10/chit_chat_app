@@ -1,11 +1,21 @@
+import 'package:chit_chat/constans.dart';
 import 'package:chit_chat/core/utils/logo.dart';
 import 'package:chit_chat/core/utils/text_styles.dart';
+import 'package:chit_chat/core/utils/widgets/custom_button.dart';
 import 'package:chit_chat/core/utils/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-class SignUpBody extends StatelessWidget {
+class SignUpBody extends StatefulWidget {
   const SignUpBody({super.key});
 
+  @override
+  State<SignUpBody> createState() => _SignUpBodyState();
+}
+
+class _SignUpBodyState extends State<SignUpBody> {
+  String emailAdress = '';
+  String password = '';
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -32,11 +42,19 @@ class SignUpBody extends StatelessWidget {
           lableText: 'Password',
           prefixIcon: Icon(Icons.lock),
         ),
-        const Row(
+        CustomButton(
+          text: 'Sign',
+          onPressed: () {},
+        ),
+        Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('I already have an \t'),
-            Text('accout'),
+            const Text('I already have an account \t'),
+            GestureDetector(
+                child: Text(
+              'Log In',
+              style: Style.textStyle18.copyWith(color: Colors.amber[800]),
+            )),
           ],
         ),
       ],
