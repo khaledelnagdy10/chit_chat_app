@@ -16,6 +16,12 @@ class CustomTextFormField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'please enter Data';
+          }
+          return null;
+        },
         onChanged: onChanged,
         decoration: InputDecoration(
           labelText: lableText,
