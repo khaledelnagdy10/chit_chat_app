@@ -5,6 +5,7 @@ import 'package:chit_chat/core/utils/logo.dart';
 import 'package:chit_chat/core/utils/text_styles.dart';
 import 'package:chit_chat/core/utils/widgets/custom_button.dart';
 import 'package:chit_chat/core/utils/widgets/custom_text_form_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -16,7 +17,7 @@ class SignUpBody extends StatefulWidget {
 }
 
 class _SignUpBodyState extends State<SignUpBody> {
-  String emailAdress = '';
+  String emailAddress = '';
   String password = '';
   @override
   Widget build(BuildContext context) {
@@ -41,8 +42,8 @@ class _SignUpBodyState extends State<SignUpBody> {
           prefixIcon: const Icon(Icons.email),
           onChanged: (String value) {
             setState(() {
-              emailAdress = value;
-              log(emailAdress);
+              emailAddress = value;
+              log(emailAddress);
             });
           },
         ),
@@ -59,8 +60,24 @@ class _SignUpBodyState extends State<SignUpBody> {
         SizedBox(
           width: 370,
           child: CustomButton(
-            text: 'Sign',
-            onPressed: () {},
+            text: 'Sign up',
+            onPressed: () async {
+              try {
+                final credential =
+                    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                  email: emailAddress,
+                  password: password,
+                );
+              } on FirebaseAuthException catch (e) {
+                if (e.code == 'weak-password') {
+                  print('The password provided is too weak.');
+                } else if (e.code == 'email-already-in-use') {
+                  print('The account already exists for that email.');
+                }
+              } catch (e) {
+                print(e);
+              }
+            },
           ),
         ),
         Row(
